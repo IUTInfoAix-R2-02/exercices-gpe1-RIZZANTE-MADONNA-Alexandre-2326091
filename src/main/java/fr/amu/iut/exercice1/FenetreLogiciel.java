@@ -107,7 +107,7 @@ public class FenetreLogiciel extends Application {
         borderPane.setBottom(basDePage);
 
         //Création scène
-        Scene scene = new Scene(borderPane,400,400);
+        Scene scene = new Scene(borderPane,500,500);
         primaryStage.setTitle("Premier exemple manipulant les conteneurs");
         primaryStage.setScene(scene);
         primaryStage.show();
