@@ -16,6 +16,7 @@ public class JeuMain extends Application {
 
     private Scene scene;
     private BorderPane root;
+    private ArrayList<Obstacle> listeObstacles = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) {
@@ -26,10 +27,10 @@ public class JeuMain extends Application {
         Personnage pacman = new Pacman();
         Personnage fantome = new Fantome();
         // on positionne le fantôme 20 positions vers la droite
-        fantome.setLayoutX(20 * 10);
+        fantome.setLayoutX(20 * 32);
+        fantome.deplacerAGauche();
         //panneau du jeu
-        Obstacle obstacle1 = new Obstacle(50,100,Color.DARKORANGE,20,40);
-        ArrayList<Obstacle> listeObstacles = new ArrayList<>();
+        Obstacle obstacle1 = new Obstacle(100,100,Color.DARKORANGE,40,40);
         listeObstacles.add(obstacle1);
         Pane jeu = new Pane();
         jeu.setPrefSize(640, 480);
@@ -44,11 +45,6 @@ public class JeuMain extends Application {
 
         //Gestion du déplacement du personnage
         deplacer(pacman, fantome);
-
-        //Gestion évènement collision obstacle
-        for (Obstacle obstacle: listeObstacles){
-            // TODO
-        }
 
         primaryStage.setTitle("... Pac Man ...");
 
@@ -94,6 +90,17 @@ public class JeuMain extends Application {
             if (j1.estEnCollision(j2)) {
                 System.out.println("Collision....");
                 System.exit(1);
+            }
+            for (int i = 0; i < listeObstacles.size(); ++i){
+                if (j1.estEnCollision(listeObstacles.get(i))){
+                    j1.setPersoX(j1.getOldX());
+                    j1.setPersoY(j1.getOldY());
+                }
+                if (j2.estEnCollision(listeObstacles.get(i))){
+                    j2.setPersoX(j2.getOldX());
+                    j2.setPersoY(j2.getOldY());
+
+                }
             }
         });
     }
