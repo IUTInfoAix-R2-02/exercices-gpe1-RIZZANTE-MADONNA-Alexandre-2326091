@@ -7,21 +7,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class IHMPendu extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        int nbVies = 5;
+        AtomicInteger nbVies = new AtomicInteger(5);
         Dico dictionnaire = new Dico();
         primaryStage.setTitle("Jeu du pendu");
         primaryStage.setWidth(500);
@@ -38,20 +36,26 @@ public class IHMPendu extends Application {
             motCachee.add('*');
             motCacheeBuilder.append('*');
         }
+        Label test = new Label(motAChercher);
         Label labelMot = new Label(motCacheeBuilder.toString());
         Button boutonRejouer = new Button("Rejouer");
 
-        affichage.getChildren().addAll(labelVie,labelMot,champUtilisateur,boutonRejouer);
+        affichage.getChildren().addAll(labelVie,test,labelMot,champUtilisateur,boutonRejouer);
         affichage.setAlignment(Pos.CENTER);
-
         Scene scene = new Scene(affichage);
         primaryStage.setScene(scene);
         primaryStage.show();
-
         champUtilisateur.addEventHandler(KeyEvent.KEY_TYPED, keyEvent -> {
             for (int i = 0; i < motCachee.size(); ++i) {
-                String caractere = champUtilisateur.getText();
-                if (motAChercher.charAt(i) == motCacheeBuilder.charAt(i));
+                char caractere = champUtilisateur.getText().charAt(0);
+                ArrayList<Integer> postionsCaractere = dictionnaire.getPositions(caractere,motAChercher);
+                if (postionsCaractere.size() == 0){
+                    nbVies.decrementAndGet();
+                }
+                else{
+                    motCacheeBuilder.setCharAt(i, caractere);
+                    motCachee.set(i,caractere);
+                }
             }
         });
     }
