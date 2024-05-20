@@ -1,2 +1,71 @@
-<?import javafx.scene.layout.BorderPane?>
-<BorderPane></BorderPane>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.amu.iut.exercice10.ConteneursControl">
+    <top>
+        <MenuBar>
+            <Menu text="File">
+            <items>
+               <MenuItem text="New" />
+               <SeparatorMenuItem />
+               <MenuItem text="Open" />
+               <SeparatorMenuItem  />
+               <MenuItem text="Save" />
+               <SeparatorMenuItem />
+               <MenuItem text="Close" />
+            </items
+            ></Menu>
+         <Menu text="Edit">
+           <items>
+               <MenuItem text="Cut" />
+               <SeparatorMenuItem  />
+               <MenuItem text="Copy" />
+               <SeparatorMenuItem  />
+               <MenuItem text="Paste" />
+           </items>
+         </Menu>
+         <Menu text="Help" />
+        </MenuBar>
+    </top>
+    <left>
+        <HBox alignment="CENTER">
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Boutons:"/>
+                <Button text="Bouton 1"/>
+                <Button text="Bouton 2"/>
+                <Button text="Bouton 3"/>
+            </VBox>
+            <Separator orientation="VERTICAL"/>
+            <VBox alignment="CENTER">
+                <padding>
+                    <Insets left="136" top="10"/>
+                </padding>
+                <GridPane alignment="CENTER" vgap="10" hgap="10">
+                    <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Name:"/>
+                    <TextField fx:id="nom" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Email:"/>
+                    <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Password:"/>
+                    <PasswordField fx:id="motDePasse" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                </GridPane>
+                <HBox spacing="10" alignment="CENTER">
+                    <padding>
+                        <Insets top="10" bottom="10" right="10" left="10"/>
+                    </padding>
+                    <Button text="Submit" fx:id="envoyer" onAction="#envoyerDonnees"/>
+                    <Button text="Cancel" fx:id="annuler" onAction="#supprimerDonnees"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </left>
+    <bottom>
+        <VBox alignment="CENTER">
+            <Separator/>
+            <Label text="Ceci est un label de bas de page"/>
+        </VBox>
+    </bottom>
+</BorderPane>
