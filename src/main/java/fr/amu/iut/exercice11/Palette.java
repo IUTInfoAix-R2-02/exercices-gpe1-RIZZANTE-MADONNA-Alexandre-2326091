@@ -1,6 +1,12 @@
-package fr.amu.iut.exercice1;
+package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.Property;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 @SuppressWarnings("Duplicates")
@@ -32,7 +39,13 @@ public class Palette extends Application {
     private HBox boutons;
 
     private Label texteDuBas;
+    private IntegerProperty nbFois;
+    private StringProperty message;
 
+    public Palette() {
+        nbFois = new SimpleIntegerProperty();
+        message = new SimpleStringProperty();
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -58,6 +71,22 @@ public class Palette extends Application {
         bleu = new Button("Bleu");
 
         /* VOTRE CODE ICI */
+        rouge.setOnAction(event -> {
+            panneau.setStyle("-fx-background-color: #F21411");
+            nbFois.setValue(++nbRouge);
+            rouge.setText(message.getValue());
+            //texteDuHaut.textProperty().bind(Bindings.concat(nbFois.add(1)));
+        });
+        vert.setOnAction(event -> {
+            panneau.setStyle("-fx-background-color: #31BCA4");
+            nbFois.setValue(++nbVert);
+            vert.setText(message.getValue());
+        });
+        bleu.setOnAction(event -> {
+            panneau.setStyle("-fx-background-color: #3273A4");
+            nbFois.setValue(++nbBleu);
+            bleu.setText(message.getValue());
+        });
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
