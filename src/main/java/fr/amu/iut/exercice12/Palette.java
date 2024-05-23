@@ -1,6 +1,7 @@
-package fr.amu.iut.exercice2;
+package fr.amu.iut.exercice12;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
 
 @SuppressWarnings("Duplicates")
 public class Palette extends Application {
@@ -60,11 +62,26 @@ public class Palette extends Application {
 
         gestionnaireEvenement = (event) -> {
             sourceOfEvent = (CustomButton) event.getSource();
+            System.out.println(sourceOfEvent);
+            if (sourceOfEvent.getText().equals("Rouge")) {
+                rouge.setNbClics(rouge.getNbClics() + 1);
+                System.out.println(rouge.getNbClics());
+            }
+            else if (sourceOfEvent.getText().equals("Vert")) {
+                vert.setNbClics(vert.getNbClics() + 1);
+                System.out.println(vert.getNbClics());
+            }
+            else if (sourceOfEvent.getText().equals("Bleu")) {
+                bleu.setNbClics(bleu.getNbClics() + 1);
+                System.out.println(bleu.getNbClics());
+            }
         };
 
         vert.setOnAction(gestionnaireEvenement);
         rouge.setOnAction(gestionnaireEvenement);
         bleu.setOnAction(gestionnaireEvenement);
+
+        //texteDuHaut.textProperty().addListener();
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
@@ -77,6 +94,5 @@ public class Palette extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 }
 
