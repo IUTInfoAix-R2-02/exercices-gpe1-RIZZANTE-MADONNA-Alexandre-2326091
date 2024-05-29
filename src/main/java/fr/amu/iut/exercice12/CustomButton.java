@@ -24,6 +24,10 @@ public class CustomButton extends Button {
         this.nbClics.set(nbClics);
     }
 
+    public IntegerProperty nbClicsProperty() {
+        return nbClics;
+    }
+
     public String getCouleur() {
         return couleur;
     }
