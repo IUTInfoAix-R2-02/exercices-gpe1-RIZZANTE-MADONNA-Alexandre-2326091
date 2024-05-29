@@ -23,11 +23,11 @@ public class Personne {
     }
 
     public void setAge(int age) {
-        this.age.setValue(age);
+        this.age.set(age);
     }
 
     public int getAge() {
-        return age.getValue();
+        return age.get();
     }
 
     public IntegerProperty ageProperty() {
