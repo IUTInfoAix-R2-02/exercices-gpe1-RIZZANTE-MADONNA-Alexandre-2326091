@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -52,6 +53,7 @@ public class Palette extends Application {
         root = new BorderPane();
 
         texteDuHaut = new Label();
+        texteDuHaut.setText("Cliquez sur un bouton");
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
 
@@ -72,30 +74,29 @@ public class Palette extends Application {
 
         /* VOTRE CODE ICI */
         rouge.setOnAction(event -> {
-            panneau.setStyle("-fx-background-color: #F21411");
+            createBindings();
             couleurPanneau.setValue("#F21411");
-            nbFois.setValue(nbRouge);
+            nbFois.setValue(++nbRouge);
             message.setValue(rouge.getText());
             //texteDuHaut.setText(message.getValue() + " choisi " + nbFois.getValue() + " fois");
+            panneau.setStyle(couleurPanneau.getValue());
         });
         vert.setOnAction(event -> {
-            panneau.setStyle("-fx-background-color: #31BCA4");
+            createBindings();
             couleurPanneau.setValue("#31BCA4");
-            nbFois.setValue(nbVert);
+            nbFois.setValue(++nbVert);
             message.setValue(vert.getText());
             //texteDuHaut.setText(message.getValue() + " choisi " + nbFois.getValue() + " fois");
+            panneau.setStyle(couleurPanneau.getValue());
         });
         bleu.setOnAction(event -> {
-            panneau.setStyle("-fx-background-color: #3273A4");
+            createBindings();
             couleurPanneau.setValue("#3273A4");
-            nbFois.setValue(nbBleu);
+            nbFois.setValue(++nbBleu);
             message.setValue(bleu.getText());
+            panneau.setStyle(couleurPanneau.getValue());
             //texteDuHaut.setText(message.getValue() + " choisi " + nbFois.getValue() + " fois");
         });
-
-        //createBindings();
-        texteDuHaut.textProperty().bind(texteDuHaut.textProperty().concat(message+" choisi "+nbFois.add(1).asString()+" fois"));
-        panneau.styleProperty().bind(couleurPanneau.concat(couleurPanneau));
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
@@ -112,5 +113,13 @@ public class Palette extends Application {
     private void createBindings() {
         BooleanProperty pasEncoreDeClic = new SimpleBooleanProperty();
         pasEncoreDeClic.bind(Bindings.equal(0,nbFois));
+        if (!pasEncoreDeClic.getValue()) {
+            texteDuHaut.textProperty().bind(Bindings.concat(message," choisi ",nbFois.asString()," fois"));
+            panneau.styleProperty().bind(Bindings.concat("-fx-background-color: ",couleurPanneau));
+            texteDuBas.textProperty().bind(Bindings.concat(message, " est une jolie couleur!"));
+            texteDuBas.styleProperty().bind(Bindings.concat(couleurPanneau));
+            texteDuBas.styleProperty().bind(Bindings.concat("-fx-text-fill: ",couleurPanneau));
+        }
+
     }
 }
